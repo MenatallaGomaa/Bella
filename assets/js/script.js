@@ -162,3 +162,27 @@ window.addEventListener("mousemove", function (event) {
     parallaxItems[i].style.transform = `translate3d(${x}px, ${y}px, 0px)`;
   }
 });
+
+/**
+ * FORM SUBMISSION AND EMAIL HANDLING
+ */
+
+const emailButton = document.getElementById("emailButton");
+
+emailButton.addEventListener("click", function () {
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const person = document.getElementById("person").value;
+  const reservationDate = document.getElementById("reservationDate").value;
+  const reservationTime = document.getElementById("reservationTime").value;
+  const message = document.getElementById("message").value;
+
+  const email = "bellabiladipizza@gmail.com";
+  const subject = "Booking Request";
+  const body = `Name: ${name}%0D%0APhone: ${phone}%0D%0APersons: ${person}%0D%0ADate: ${reservationDate}%0D%0ATime: ${reservationTime}%0D%0AMessage: ${message}`;
+
+  const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+
+  // Open default email client with pre-filled data
+  window.location.href = mailtoLink;
+});
