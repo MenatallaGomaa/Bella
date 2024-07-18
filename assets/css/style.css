@@ -2324,3 +2324,12 @@ textarea.input-field {
     left: 0;
   }
 }
+
+/*
+Pizza style in the Footer
+*/
+
+.title-1 .fas {
+  margin-right: 10px;
+  color: var(--gold-crayola); /* Use the color variable */
+}
