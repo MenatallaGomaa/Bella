@@ -779,7 +779,7 @@ body.nav-active {
   margin-block-end: 60px;
 }
 
-.navbar-list {
+.navbar .navbar-list {
   border-block-end: 1px solid var(--white-alpha-20);
   margin-block-end: 100px;
 }
