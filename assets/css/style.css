@@ -683,6 +683,7 @@ body.nav-active {
   z-index: 4;
   border-block-end: 1px solid transparent;
   transition: var(--transition-1);
+  padding: 10px 0;
 }
 
 .header.active {
