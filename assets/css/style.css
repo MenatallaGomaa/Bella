@@ -346,13 +346,8 @@ body.nav-active {
 }
 
 .img-cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
-  object-position: center; /* Centers the image within the container */
+  object-fit: cover;
 }
 
 .section-subtitle {
