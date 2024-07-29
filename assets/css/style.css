@@ -674,8 +674,7 @@ body.nav-active {
 }
 
 .header {
-  position: fixed;
-  top: 0;
+  position: absolute;
   left: 0;
   width: 100%;
   background-color: transparent;
@@ -683,13 +682,11 @@ body.nav-active {
   z-index: 4;
   border-block-end: 1px solid transparent;
   transition: var(--transition-1);
-  padding: 10px 0;
+  padding: 5px 0;
 }
 
 .header.active {
   padding-block: 20px;
-  background-color: var(--eerie-black-4);
-  border-color: var(--black-alpha-15);
 }
 
 .header.hide {
