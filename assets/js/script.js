@@ -173,13 +173,24 @@ emailButton.addEventListener("click", function () {
   const name = document.getElementById("name").value;
   const phone = document.getElementById("phone").value;
   const person = document.getElementById("person").value;
-  const reservationDate = document.getElementById("reservationDate").value;
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
   const reservationTime = document.getElementById("reservationTime").value;
   const message = document.getElementById("message").value;
 
+  if (!name || !phone || !startDate || !endDate || !reservationTime) {
+    alert("Bitte füllen Sie alle Pflichtfelder aus.");
+    return;
+  }
+
+  if (person < 50) {
+    alert("Die Anzahl der Personen muss mindestens 50 betragen.");
+    return;
+  }
+
   const email = "bellabiladipizza@gmail.com";
   const subject = "Booking Request";
-  const body = `Name: ${name}%0D%0APhone: ${phone}%0D%0APersons: ${person}%0D%0ADate: ${reservationDate}%0D%0ATime: ${reservationTime}%0D%0AMessage: ${message}`;
+  const body = `Name: ${name}%0D%0APhone: ${phone}%0D%0APersons: ${person}%0D%0AStart Date: ${startDate}%0D%0AEnd Date: ${endDate}%0D%0ATime: ${reservationTime}%0D%0AMessage: ${message}`;
 
   const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
 

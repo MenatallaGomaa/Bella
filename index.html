@@ -963,107 +963,84 @@
 
 
 
-      <!-- 
-        - #RESERVATION
-      -->
+<!-- 
+  - #RESERVATION
+-->
 
-      <section id="reservation" class="reservation">
-        <div class="container">
-      
-          <div class="form reservation-form bg-black-10">
+<section id="reservation" class="reservation">
+  <div class="container">
 
-            <form id="reservationForm" action="" class="form-left">
-              <h2 class="headline-1 text-center">Onlinereservierung</h2>
-            
-              <p class="form-text text-center">
-                Buchungsanfrage <a href="tel:+49 1590 6273332" class="link">+49 1590 6273332</a>
-                oder füllen Sie das Bestellformular aus
-              </p>
-            
-              <div class="input-wrapper">
-                <input id="name" type="text" name="name" placeholder="Name" autocomplete="off" class="input-field">
-                <input id="phone" type="tel" name="phone" placeholder="Telefon" autocomplete="off" class="input-field">
-              </div>
-            
-              <div class="input-wrapper">
-                <div class="icon-wrapper">
-                  <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-                  <select id="person" name="person" class="input-field">
-                    <option value="1 Person">>50 Personen</option>
-                    <option value="2 Personen">60 Personen</option>
-                    <option value="3 Personen">70 Personen</option>
-                    <option value="4 Personen">80 Personen</option>
-                    <option value="5 Personen">90 Personen</option>
-                    <option value="6 Personen">100 Personen</option>
-                  </select>
-                  <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
-                </div>
-            
-                <div class="icon-wrapper">
-                  <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
-                  <input id="reservationDate" type="date" name="reservation-date" class="input-field">
-                  <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
-                </div>
-            
-                <div class="icon-wrapper">
-                  <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
-                  <select id="reservationTime" name="time" class="input-field">
-                    <option value="08:00am">08 : 00 am</option>
-                    <option value="09:00am">09 : 00 am</option>
-                    <option value="10:00am">10 : 00 am</option>
-                    <option value="11:00am">11 : 00 am</option>
-                    <option value="12:00pm">12 : 00 pm</option>
-                    <option value="01:00pm">01 : 00 pm</option>
-                    <option value="02:00pm">02 : 00 pm</option>
-                    <option value="03:00pm">03 : 00 pm</option>
-                    <option value="04:00pm">04 : 00 pm</option>
-                    <option value="05:00pm">05 : 00 pm</option>
-                    <option value="06:00pm">06 : 00 pm</option>
-                    <option value="07:00pm">07 : 00 pm</option>
-                    <option value="08:00pm">08 : 00 pm</option>
-                    <option value="09:00pm">09 : 00 pm</option>
-                    <option value="10:00pm">10 : 00 pm</option>
-                  </select>
-                  <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
-                </div>
-              </div>
-            
-              <textarea id="message" name="message" placeholder="Nachricht" autocomplete="off" class="input-field"></textarea>
-            
-              <button id="emailButton" type="button" class="btn btn-secondary">
-                <span class="text text-1">Angebot erhalten</span>
-                <span class="text text-2" aria-hidden="true">Angebot erhalten</span>
-              </button>
-            </form>
-            
-            <div class="form-right text-center" style="background-image: url('./assets/images/form-pattern.png')">
+    <div class="form reservation-form bg-black-10">
 
-              <h2 class="headline-1 text-center">Kontaktieren Sie uns</h2>
+      <form id="reservationForm" action="" class="form-left">
+        <h2 class="headline-1 text-center">Onlinereservierung</h2>
+        
+        <br>                
+        <div class="input-wrapper">
+          <input id="name" type="text" name="name" placeholder="* Name-und Nachname" autocomplete="off" class="input-field" required>
+          <input id="phone" type="tel" name="phone" placeholder="* Telefon" autocomplete="off" class="input-field" required>
+        </div>
 
-              <p class="contact-label">Buchungsanfrage</p>
+        <div class="input-wrapper">
+          <div class="icon-wrapper">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            <input id="person" type="number" name="person" class="input-field" min="50" placeholder="* Anzahl der Personen" required>
+          </div>
 
-              <a href="tel:+49 1590 6273332" class="body-1 contact-number hover-underline">+49 1590 6273332</a>
+          <div class="icon-wrapper">
+            <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
+            <input id="startDate" type="date" name="start-date" class="input-field" required>
+            <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+          </div>
 
-              <div class="separator"></div>
+          <div class="icon-wrapper">
+            <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
+            <input id="endDate" type="date" name="end-date" class="input-field" required>
+            <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+          </div>
 
-              <p class="contact-label">Standort</p>
-
-              <address class="body-4">
-                Bautzmannstraße 2 <br>
-                04315 Leipzig</address>
-
-              <p class="contact-label">Täglich</p>
-
-              <p class="body-4">
-                Montag bis Sonntag<br>
-                15 Uhr bis 21 Uhr
-              </p>
-            </div>
+          <div class="icon-wrapper">
+            <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+            <select id="reservationTime" name="time" class="input-field" required>
+              <!-- 24-hour format starting from 11:00 -->
+              <option value="11:00">11 : 00</option>
+              <option value="12:00">12 : 00</option>
+              <option value="13:00">13 : 00</option>
+              <option value="14:00">14 : 00</option>
+              <option value="15:00">15 : 00</option>
+              <option value="16:00">16 : 00</option>
+              <option value="17:00">17 : 00</option>
+              <option value="18:00">18 : 00</option>
+              <option value="19:00">19 : 00</option>
+              <option value="20:00">20 : 00</option>
+              <option value="21:00">21 : 00</option>
+            </select>
+            <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
           </div>
         </div>
-      </section>
 
+        <textarea id="message" name="message" placeholder="Nachricht" autocomplete="off" class="input-field"></textarea>
 
+        <button id="emailButton" type="button" class="btn btn-secondary">
+          <span class="text text-1">Angebot erhalten</span>
+          <span class="text text-2" aria-hidden="true">Angebot erhalten</span>
+        </button>
+      </form>
+
+      <div class="form-right text-center" style="background-image: url('./assets/images/form-pattern.png')">
+
+        <h2 class="headline-1 text-center">Kontaktieren Sie uns</h2>
+
+        <div class="separator"></div>
+
+        <p class="form-text text-center">
+          Haben Sie eine Veranstaltung im Kopf? Rufen Sie uns an unter <a href="tel:+49 1590 6273332" class="link">+49 1590 6273332</a>
+          oder füllen Sie unser Bestellformular aus, um Ihre Ideen zum Leben zu erwecken!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
