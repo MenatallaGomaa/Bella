@@ -194,6 +194,6 @@ emailButton.addEventListener("click", function () {
 
   const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
 
-  // Open default email client with pre-filled data
+  // Open default email client with pre-filled dataa
   window.location.href = mailtoLink;
 });
