@@ -12,20 +12,7 @@ window.addEventListener("load", function () {
   preloader.classList.add("loaded");
   document.body.classList.add("loaded");
   
-  // Ensure navbar is hidden after page load
-  if (navbar && !navbar.classList.contains("active")) {
-    navbar.style.display = "none";
-    navbar.style.transform = "translateX(-100%) translateZ(0)";
-    navbar.style.visibility = "hidden";
-    navbar.style.opacity = "0";
-    navbar.style.clipPath = "inset(0 0 0 100%)";
-    navbar.style.webkitClipPath = "inset(0 0 0 100%)";
-    navbar.style.pointerEvents = "none";
-  }
-  if (overlay && !overlay.classList.contains("active")) {
-    overlay.style.opacity = "0";
-    overlay.style.visibility = "hidden";
-  }
+  // Side menu removed - no navbar handling needed
 });
 
 /**
@@ -39,97 +26,8 @@ const addEventOnElements = function (elements, eventType, callback) {
 };
 
 /**
- * NAVBAR
+ * NAVBAR - Removed side menu functionality
  */
-
-const navbar = document.querySelector("[data-navbar]");
-const navTogglers = document.querySelectorAll("[data-nav-toggler]");
-const overlay = document.querySelector("[data-overlay]");
-
-// Ensure navbar is hidden immediately on page load (before CSS loads)
-if (navbar) {
-  navbar.classList.remove("active");
-  // Set inline styles immediately to prevent flash of visible sidebar
-  navbar.style.display = "none";
-  navbar.style.transform = "translateX(-100%) translateZ(0)";
-  navbar.style.visibility = "hidden";
-  navbar.style.opacity = "0";
-  navbar.style.clipPath = "inset(0 0 0 100%)";
-  navbar.style.webkitClipPath = "inset(0 0 0 100%)";
-  navbar.style.pointerEvents = "none";
-}
-
-if (overlay) {
-  overlay.classList.remove("active");
-  overlay.style.opacity = "0";
-  overlay.style.visibility = "hidden";
-}
-
-const toggleNavbar = function () {
-  const isActive = navbar.classList.contains("active");
-  
-  if (isActive) {
-    // Closing navbar
-    navbar.classList.remove("active");
-    overlay.classList.remove("active");
-    document.body.classList.remove("nav-active");
-    // Hide completely after transition completes (300ms transition)
-    setTimeout(() => {
-      if (!navbar.classList.contains("active")) {
-        navbar.style.display = "none";
-        navbar.style.transform = "translateX(-100%) translateZ(0)";
-        navbar.style.visibility = "hidden";
-        navbar.style.opacity = "0";
-        navbar.style.clipPath = "inset(0 0 0 100%)";
-        navbar.style.webkitClipPath = "inset(0 0 0 100%)";
-        navbar.style.pointerEvents = "none";
-      }
-    }, 350);
-  } else {
-    // Opening navbar - clear inline styles and let CSS handle transitions
-    navbar.style.display = "block";
-    navbar.style.transform = "";
-    navbar.style.visibility = "";
-    navbar.style.opacity = "";
-    navbar.style.clipPath = "";
-    navbar.style.webkitClipPath = "";
-    navbar.style.pointerEvents = "";
-    
-    // Use single requestAnimationFrame for better performance
-    requestAnimationFrame(() => {
-      navbar.classList.add("active");
-      overlay.classList.add("active");
-      document.body.classList.add("nav-active");
-    });
-  }
-};
-
-addEventOnElements(navTogglers, "click", toggleNavbar);
-
-// Prevent navbar from closing when clicking inside it
-navbar.addEventListener("click", function (e) {
-  e.stopPropagation();
-});
-
-// Close navbar when clicking on overlay
-overlay.addEventListener("click", function () {
-  if (navbar.classList.contains("active")) {
-    toggleNavbar();
-  }
-});
-
-// Close navbar when clicking on a link
-const navbarLinks = document.querySelectorAll(".navbar-link");
-navbarLinks.forEach(link => {
-  link.addEventListener("click", function () {
-    // Small delay to allow navigation
-    setTimeout(() => {
-      if (navbar.classList.contains("active")) {
-        toggleNavbar();
-      }
-    }, 300);
-  });
-});
 
 /**
  * HEADER & BACK TOP BTN
@@ -179,11 +77,6 @@ const hideHeader = function () {
 // Throttle scroll handler for better performance
 let scrollTimeout;
 const handleScroll = function () {
-  // Don't hide header if navbar is open
-  if (navbar && navbar.classList.contains("active")) {
-    return;
-  }
-  
   // Get back to top button if not already set
   if (!backTopBtn) {
     backTopBtn = document.querySelector("[data-back-top-btn]");

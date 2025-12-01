@@ -148,7 +148,9 @@ article {
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
+  overflow-y: visible;
   box-sizing: border-box;
+  min-height: 100vh;
 }
 
 li {
@@ -210,9 +212,12 @@ html {
   font-size: 10px;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
   max-width: 100%;
   position: relative;
+  height: auto;
+  min-height: 100%;
 }
 
 body {
@@ -222,28 +227,19 @@ body {
   font-size: var(--fontSize-body-4);
   font-weight: var(--weight-regular);
   line-height: var(--lineHeight-5);
-  overflow: hidden;
-  height: 300vh;
   overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
   max-width: 100vw;
   position: relative;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 body.loaded {
-  overflow: overlay;
-}
-
-body.nav-active {
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  /* Store scroll position to prevent jump when navbar closes */
-  top: 0;
-  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 ::-webkit-scrollbar {
@@ -728,6 +724,114 @@ body.nav-active {
   display: none;
 }
 
+/* Mobile: Show topbar with navigation but hide phone/email */
+@media (max-width: 574px) {
+  .topbar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-block: 12px;
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-block-end: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .topbar .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding-inline: 15px;
+    flex-wrap: wrap;
+  }
+
+  .topbar .navbar-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .topbar .navbar-item {
+    margin: 0;
+  }
+
+  .topbar .navbar-link {
+    color: var(--white) !important;
+    font-size: 1.2rem;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: var(--transition-1);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+  }
+
+  .topbar .navbar-link .span {
+    color: var(--white) !important;
+    transition: var(--transition-1);
+    text-align: center;
+    display: block;
+  }
+
+  .topbar .navbar-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--gold-crayola);
+    transform: scaleX(0);
+    transition: transform var(--transition-2);
+    border-radius: 0 0 6px 6px;
+  }
+
+  .topbar .navbar-link:is(:hover, :focus-visible) {
+    background-color: rgba(212, 175, 55, 0.2);
+    border-color: var(--gold-crayola);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .topbar .navbar-link:is(:hover, :focus-visible) .span {
+    color: var(--gold-crayola) !important;
+  }
+
+  .topbar .navbar-link:is(:hover, :focus-visible)::after {
+    transform: scaleX(1);
+  }
+
+  /* Hide phone and email on mobile */
+  .topbar .topbar-item.link,
+  .topbar .separator,
+  .topbar .item-2 {
+    display: none !important;
+  }
+
+  /* Adjust header position to account for topbar */
+  .header {
+    top: 50px;
+  }
+}
+
 /*-----------------------------------*\
   #HEADER
 \*-----------------------------------*/
@@ -769,107 +873,28 @@ body.nav-active {
   gap: 8px;
 }
 
+
+/* Side menu removed - nav-open-btn disabled */
 .nav-open-btn {
-  padding: 12px;
-  padding-inline-end: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 4px;
-}
-
-.nav-open-btn .line {
-  width: 30px;
-  height: 2px;
-  background-color: var(--white);
-  display: block;
-  transform-origin: left;
-  animation: menuBtn 400ms ease-in-out alternate infinite;
-  flex-shrink: 0;
-}
-
-@keyframes menuBtn {
-  0% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0.5);
-  }
-}
-
-.nav-open-btn .line-2 {
-  animation-delay: 150ms;
-}
-
-.nav-open-btn .line-3 {
-  animation-delay: 300ms;
-}
-
-.navbar {
-  /* Ensure navbar stays fixed at top of viewport - doesn't scroll with page */
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: auto !important;
-  bottom: 0 !important;
-  margin: 0 !important;
-  background: linear-gradient(135deg, rgba(18, 18, 18, 0.95) 0%, rgba(13, 13, 13, 0.98) 100%);
-  max-width: 95vw;
-  width: 100%;
-  min-width: 350px;
-  padding: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
-  z-index: 1000;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.3s, opacity 0.2s ease, display 0s 0.3s;
-  box-sizing: border-box;
-  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6), 
-              inset -1px 0 0 rgba(255, 255, 255, 0.08),
-              0 0 0 1px rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  border-right: 1px solid rgba(212, 175, 55, 0.1);
-  transform-origin: left center;
-  /* Use transform for better performance - GPU accelerated */
-  transform: translateX(-100%) !important;
-  /* Use clip-path as additional safety to ensure navbar is completely hidden */
-  clip-path: inset(0 0 0 100%) !important;
-  -webkit-clip-path: inset(0 0 0 100%) !important;
   pointer-events: none !important;
-  /* GPU acceleration */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  will-change: transform;
+}
+
+/* Side menu removed - navbar styles disabled */
+.navbar {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .navbar.active {
-  /* Ensure navbar stays fixed when active - doesn't scroll with page */
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: auto !important;
-  bottom: 0 !important;
-  margin: 0 !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  transform: translateX(0) translateZ(0) !important;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0s, opacity 0.2s ease, display 0s 0s;
-  /* Remove clip-path when active */
-  clip-path: none !important;
-  -webkit-clip-path: none !important;
-  pointer-events: all !important;
-  z-index: 1000 !important;
-  /* Ensure full width when active */
-  width: 100% !important;
-  max-width: 100vw !important;
-  /* GPU acceleration */
-  -webkit-transform: translateX(0) translateZ(0);
-  will-change: auto;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .navbar .close-btn {
@@ -1217,31 +1242,19 @@ body.nav-active {
   box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
 }
 
+/* Side menu removed - overlay disabled */
 .overlay {
-  /* Ensure overlay stays fixed - doesn't scroll with page */
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  bottom: 0 !important;
-  right: 0 !important;
-  background-color: var(--black-alpha-80);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity var(--transition-2), visibility 0s var(--transition-2);
-  z-index: 999;
-  backdrop-filter: blur(2px);
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .overlay.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all;
-  /* Ensure overlay stays fixed when active */
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  transition: opacity var(--transition-2), visibility 0s 0s;
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /*-----------------------------------*\
@@ -2163,6 +2176,14 @@ textarea.input-field {
   margin-block-end: 70px;
 }
 
+.footer {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: auto;
+}
+
 .footer-brand {
   position: relative;
   padding: 50px 40px;
@@ -2342,6 +2363,7 @@ textarea.input-field {
   
   .header {
     padding-block: 15px;
+    top: 50px;
   }
 
   .header .logo img {
@@ -2349,36 +2371,21 @@ textarea.input-field {
     height: auto;
   }
 
+
+
+  /* Side menu removed - navbar disabled */
   .navbar {
-    max-width: 95vw;
-    min-width: 350px;
-    left: 0 !important;
-    overflow-x: hidden;
     display: none !important;
-    transform: translateX(-100%) translateZ(0) !important;
     visibility: hidden !important;
     opacity: 0 !important;
-    clip-path: inset(0 0 0 100%) !important;
-    -webkit-clip-path: inset(0 0 0 100%) !important;
     pointer-events: none !important;
-    will-change: transform;
   }
 
   .navbar.active {
-    display: block !important;
-    left: 0 !important;
-    transform: translateX(0) translateZ(0) !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    clip-path: none !important;
-    -webkit-clip-path: none !important;
-    pointer-events: all !important;
-    z-index: 1000 !important;
-    /* Ensure full width when active on mobile */
-    width: 100% !important;
-    max-width: 100vw !important;
-    min-width: 100% !important;
-    will-change: transform;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   
   .navbar .text-center {
@@ -2714,15 +2721,21 @@ textarea.input-field {
   
   html {
     overflow-x: hidden;
+    overflow-y: auto;
     width: 100%;
     max-width: 100vw;
+    height: auto;
+    min-height: 100%;
   }
 
   body {
     overflow-x: hidden;
+    overflow-y: auto;
     width: 100%;
     max-width: 100vw;
     position: relative;
+    height: auto;
+    min-height: 100vh;
   }
 
   * {
@@ -2841,6 +2854,16 @@ textarea.input-field {
   html {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    height: auto;
+    min-height: 100%;
+  }
+  
+  body {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+    -webkit-overflow-scrolling: touch;
   }
 
   /**
@@ -2928,34 +2951,45 @@ textarea.input-field {
     max-width: 120px;
   }
   
-  /* Ensure navbar is completely hidden on very small screens */
+  /* Side menu removed - navbar disabled */
   .navbar {
     display: none !important;
-    left: 0 !important;
-    transform: translateX(-100%) translateZ(0) !important;
     visibility: hidden !important;
     opacity: 0 !important;
-    clip-path: inset(0 0 0 100%) !important;
-    -webkit-clip-path: inset(0 0 0 100%) !important;
     pointer-events: none !important;
-    will-change: transform;
   }
   
   .navbar.active {
-    display: block !important;
-    left: 0 !important;
-    transform: translateX(0) translateZ(0) !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    clip-path: none !important;
-    -webkit-clip-path: none !important;
-    pointer-events: all !important;
-    z-index: 1000 !important;
-    /* Ensure full width when active on very small screens */
-    width: 100% !important;
-    max-width: 100vw !important;
-    min-width: 100% !important;
-    will-change: transform;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Very small screens - adjust topbar navigation */
+  .topbar {
+    padding-block: 10px;
+    background-color: rgba(18, 18, 18, 0.98);
+  }
+
+  .topbar .navbar-link {
+    font-size: 1.1rem;
+    padding: 6px 10px;
+    color: var(--white) !important;
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .topbar .navbar-link .span {
+    color: var(--white) !important;
+  }
+
+  .topbar .navbar-list {
+    gap: 6px;
   }
 }
 
@@ -3004,6 +3038,7 @@ textarea.input-field {
     z-index: 4;
     transition: var(--transition-1);
   }
+
 
   .topbar:has(~ .header.active) {
     transform: translateY(-100%);
@@ -3218,43 +3253,27 @@ textarea.input-field {
     margin-inline: 30px;
   }
   
-  /* Ensure navbar stays fixed on desktop/web - doesn't scroll with page */
+  /* Side menu removed - navbar disabled */
   .navbar {
-    position: fixed !important;
-    top: 0 !important;
-    left: -100% !important;
-    right: auto !important;
-    bottom: 0 !important;
-    margin: 0 !important;
-    transform-origin: left center;
-    /* Prevent any scroll from affecting navbar position */
-    will-change: transform;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   
   .navbar.active {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: auto !important;
-    bottom: 0 !important;
-    margin: 0 !important;
-    transform: translateX(0) !important;
-    width: 100% !important;
-    max-width: 100vw !important;
-  }
-  
-  /* Ensure header doesn't create positioning context for navbar */
-  .header {
-    transform: none !important;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
   
   .overlay,
   .overlay.active {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    bottom: 0 !important;
-    right: 0 !important;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   /**
@@ -3536,30 +3555,24 @@ textarea.input-field {
    * HEADER
    */
 
+  /* Side menu removed - nav elements disabled */
   .nav-open-btn,
   .navbar > *:not(.navbar-list),
   .header .overlay {
-    display: none;
+    display: none !important;
   }
 
   .header .container {
     max-width: unset;
   }
 
-  .navbar,
-  .navbar.active,
-  .navbar-list {
-    all: unset;
-  }
-
+  /* Side menu removed - navbar disabled */
   .navbar,
   .navbar.active {
-    margin-inline: auto 20px;
-  }
-
-  .navbar-list {
-    display: flex;
-    gap: 30px;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 
   .navbar-item {
