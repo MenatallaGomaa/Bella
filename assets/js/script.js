@@ -17,6 +17,8 @@ window.addEventListener("load", function () {
     navbar.style.transform = "translateX(-100%)";
     navbar.style.visibility = "hidden";
     navbar.style.opacity = "0";
+    navbar.style.clipPath = "inset(0 0 0 100%)";
+    navbar.style.webkitClipPath = "inset(0 0 0 100%)";
   }
   if (overlay && !overlay.classList.contains("active")) {
     overlay.style.opacity = "0";
@@ -49,6 +51,8 @@ if (navbar) {
   navbar.style.transform = "translateX(-100%)";
   navbar.style.visibility = "hidden";
   navbar.style.opacity = "0";
+  navbar.style.clipPath = "inset(0 0 0 100%)";
+  navbar.style.webkitClipPath = "inset(0 0 0 100%)";
 }
 
 if (overlay) {
@@ -64,6 +68,8 @@ const toggleNavbar = function () {
   navbar.style.transform = "";
   navbar.style.visibility = "";
   navbar.style.opacity = "";
+  navbar.style.clipPath = "";
+  navbar.style.webkitClipPath = "";
   overlay.style.opacity = "";
   overlay.style.visibility = "";
   
@@ -72,6 +78,13 @@ const toggleNavbar = function () {
     navbar.classList.remove("active");
     overlay.classList.remove("active");
     document.body.classList.remove("nav-active");
+    // Restore clip-path after transition
+    setTimeout(() => {
+      if (!navbar.classList.contains("active")) {
+        navbar.style.clipPath = "inset(0 0 0 100%)";
+        navbar.style.webkitClipPath = "inset(0 0 0 100%)";
+      }
+    }, 400);
   } else {
     // Opening navbar
     navbar.classList.add("active");

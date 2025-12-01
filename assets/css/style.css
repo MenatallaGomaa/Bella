@@ -820,7 +820,7 @@ body.nav-active {
   visibility: hidden !important;
   opacity: 0 !important;
   z-index: 1000;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.4s, opacity 0.3s ease 0.1s;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.4s, opacity 0.3s ease 0.1s, clip-path 0.4s ease;
   box-sizing: border-box;
   will-change: transform;
   box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6), 
@@ -832,6 +832,9 @@ body.nav-active {
   transform-origin: left center;
   /* Prevent any scrolling from affecting navbar position */
   transform: translateX(-100%) !important;
+  /* Use clip-path as additional safety to ensure navbar is completely hidden */
+  clip-path: inset(0 0 0 100%);
+  -webkit-clip-path: inset(0 0 0 100%);
 }
 
 .navbar.active {
@@ -845,7 +848,10 @@ body.nav-active {
   visibility: visible !important;
   opacity: 1 !important;
   transform: translateX(100%) !important;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0s, opacity 0.3s ease 0.1s;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0s, opacity 0.3s ease 0.1s, clip-path 0.4s ease;
+  /* Remove clip-path when active */
+  clip-path: none;
+  -webkit-clip-path: none;
 }
 
 .navbar .close-btn {
@@ -2325,13 +2331,21 @@ textarea.input-field {
     min-width: 350px;
     left: -100%;
     overflow-x: hidden;
-    transform: translateX(-100%);
-    visibility: hidden;
+    transform: translateX(-100%) !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    clip-path: inset(0 0 0 100%) !important;
+    -webkit-clip-path: inset(0 0 0 100%) !important;
+    pointer-events: none !important;
   }
 
   .navbar.active {
-    transform: translateX(100%);
-    visibility: visible;
+    transform: translateX(100%) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    pointer-events: all !important;
   }
   
   .navbar .text-center {
@@ -2879,6 +2893,25 @@ textarea.input-field {
 
   .menu-card .card-banner {
     max-width: 120px;
+  }
+  
+  /* Ensure navbar is completely hidden on very small screens */
+  .navbar {
+    transform: translateX(-100%) !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    clip-path: inset(0 0 0 100%) !important;
+    -webkit-clip-path: inset(0 0 0 100%) !important;
+    pointer-events: none !important;
+  }
+  
+  .navbar.active {
+    transform: translateX(100%) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    pointer-events: all !important;
   }
 }
 
