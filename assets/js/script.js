@@ -73,7 +73,7 @@ const toggleNavbar = function () {
     navbar.classList.remove("active");
     overlay.classList.remove("active");
     document.body.classList.remove("nav-active");
-    // Hide completely after transition
+    // Hide completely after transition completes
     setTimeout(() => {
       if (!navbar.classList.contains("active")) {
         navbar.style.display = "none";
@@ -84,9 +84,9 @@ const toggleNavbar = function () {
         navbar.style.webkitClipPath = "inset(0 0 0 100%)";
         navbar.style.pointerEvents = "none";
       }
-    }, 400);
+    }, 450);
   } else {
-    // Opening navbar - remove inline display first
+    // Opening navbar - clear all inline styles first to let CSS handle it
     navbar.style.display = "";
     navbar.style.transform = "";
     navbar.style.visibility = "";
@@ -94,12 +94,16 @@ const toggleNavbar = function () {
     navbar.style.clipPath = "";
     navbar.style.webkitClipPath = "";
     navbar.style.pointerEvents = "";
-    // Small delay to ensure display is set before adding active class
-    requestAnimationFrame(() => {
+    
+    // Force display block first, then add active class
+    navbar.style.display = "block";
+    
+    // Use setTimeout to ensure display is applied before transform
+    setTimeout(() => {
       navbar.classList.add("active");
       overlay.classList.add("active");
       document.body.classList.add("nav-active");
-    });
+    }, 10);
   }
 };
 

@@ -843,19 +843,20 @@ body.nav-active {
   /* Ensure navbar stays fixed when active - doesn't scroll with page */
   position: fixed !important;
   top: 0 !important;
-  left: -100% !important;
+  left: 0 !important;
   right: auto !important;
   bottom: 0 !important;
   margin: 0 !important;
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
-  transform: translateX(100%) !important;
+  transform: translateX(0) !important;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0s, opacity 0.3s ease 0.1s, clip-path 0.4s ease, display 0s 0s;
   /* Remove clip-path when active */
   clip-path: none !important;
   -webkit-clip-path: none !important;
   pointer-events: all !important;
+  z-index: 1000 !important;
 }
 
 .navbar .close-btn {
@@ -2346,12 +2347,14 @@ textarea.input-field {
 
   .navbar.active {
     display: block !important;
-    transform: translateX(100%) !important;
+    left: 0 !important;
+    transform: translateX(0) !important;
     visibility: visible !important;
     opacity: 1 !important;
     clip-path: none !important;
     -webkit-clip-path: none !important;
     pointer-events: all !important;
+    z-index: 1000 !important;
   }
   
   .navbar .text-center {
@@ -2914,12 +2917,14 @@ textarea.input-field {
   
   .navbar.active {
     display: block !important;
-    transform: translateX(100%) !important;
+    left: 0 !important;
+    transform: translateX(0) !important;
     visibility: visible !important;
     opacity: 1 !important;
     clip-path: none !important;
     -webkit-clip-path: none !important;
     pointer-events: all !important;
+    z-index: 1000 !important;
   }
 }
 
@@ -3183,8 +3188,7 @@ textarea.input-field {
   }
   
   /* Ensure navbar stays fixed on desktop/web - doesn't scroll with page */
-  .navbar,
-  .navbar.active {
+  .navbar {
     position: fixed !important;
     top: 0 !important;
     left: -100% !important;
@@ -3197,7 +3201,13 @@ textarea.input-field {
   }
   
   .navbar.active {
-    transform: translateX(100%) !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    transform: translateX(0) !important;
   }
   
   /* Ensure header doesn't create positioning context for navbar */
