@@ -11,6 +11,17 @@ const preloader = document.querySelector("[data-preaload]");
 window.addEventListener("load", function () {
   preloader.classList.add("loaded");
   document.body.classList.add("loaded");
+  
+  // Ensure navbar is hidden after page load
+  if (navbar && !navbar.classList.contains("active")) {
+    navbar.style.transform = "translateX(-100%)";
+    navbar.style.visibility = "hidden";
+    navbar.style.opacity = "0";
+  }
+  if (overlay && !overlay.classList.contains("active")) {
+    overlay.style.opacity = "0";
+    overlay.style.visibility = "hidden";
+  }
 });
 
 /**
@@ -31,10 +42,42 @@ const navbar = document.querySelector("[data-navbar]");
 const navTogglers = document.querySelectorAll("[data-nav-toggler]");
 const overlay = document.querySelector("[data-overlay]");
 
+// Ensure navbar is hidden immediately on page load (before CSS loads)
+if (navbar) {
+  navbar.classList.remove("active");
+  // Set inline styles immediately to prevent flash of visible sidebar
+  navbar.style.transform = "translateX(-100%)";
+  navbar.style.visibility = "hidden";
+  navbar.style.opacity = "0";
+}
+
+if (overlay) {
+  overlay.classList.remove("active");
+  overlay.style.opacity = "0";
+  overlay.style.visibility = "hidden";
+}
+
 const toggleNavbar = function () {
-  navbar.classList.toggle("active");
-  overlay.classList.toggle("active");
-  document.body.classList.toggle("nav-active");
+  const isActive = navbar.classList.contains("active");
+  
+  // Remove inline styles immediately so CSS can handle transitions
+  navbar.style.transform = "";
+  navbar.style.visibility = "";
+  navbar.style.opacity = "";
+  overlay.style.opacity = "";
+  overlay.style.visibility = "";
+  
+  if (isActive) {
+    // Closing navbar
+    navbar.classList.remove("active");
+    overlay.classList.remove("active");
+    document.body.classList.remove("nav-active");
+  } else {
+    // Opening navbar
+    navbar.classList.add("active");
+    overlay.classList.add("active");
+    document.body.classList.add("nav-active");
+  }
 };
 
 addEventOnElements(navTogglers, "click", toggleNavbar);
