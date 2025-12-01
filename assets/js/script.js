@@ -15,7 +15,7 @@ window.addEventListener("load", function () {
   // Ensure navbar is hidden after page load
   if (navbar && !navbar.classList.contains("active")) {
     navbar.style.display = "none";
-    navbar.style.transform = "translateX(-100%)";
+    navbar.style.transform = "translateX(-100%) translateZ(0)";
     navbar.style.visibility = "hidden";
     navbar.style.opacity = "0";
     navbar.style.clipPath = "inset(0 0 0 100%)";
@@ -51,7 +51,7 @@ if (navbar) {
   navbar.classList.remove("active");
   // Set inline styles immediately to prevent flash of visible sidebar
   navbar.style.display = "none";
-  navbar.style.transform = "translateX(-100%)";
+  navbar.style.transform = "translateX(-100%) translateZ(0)";
   navbar.style.visibility = "hidden";
   navbar.style.opacity = "0";
   navbar.style.clipPath = "inset(0 0 0 100%)";
@@ -73,21 +73,21 @@ const toggleNavbar = function () {
     navbar.classList.remove("active");
     overlay.classList.remove("active");
     document.body.classList.remove("nav-active");
-    // Hide completely after transition completes
+    // Hide completely after transition completes (300ms transition)
     setTimeout(() => {
       if (!navbar.classList.contains("active")) {
         navbar.style.display = "none";
-        navbar.style.transform = "translateX(-100%)";
+        navbar.style.transform = "translateX(-100%) translateZ(0)";
         navbar.style.visibility = "hidden";
         navbar.style.opacity = "0";
         navbar.style.clipPath = "inset(0 0 0 100%)";
         navbar.style.webkitClipPath = "inset(0 0 0 100%)";
         navbar.style.pointerEvents = "none";
       }
-    }, 450);
+    }, 350);
   } else {
-    // Opening navbar - clear all inline styles first to let CSS handle it
-    navbar.style.display = "";
+    // Opening navbar - clear inline styles and let CSS handle transitions
+    navbar.style.display = "block";
     navbar.style.transform = "";
     navbar.style.visibility = "";
     navbar.style.opacity = "";
@@ -95,15 +95,12 @@ const toggleNavbar = function () {
     navbar.style.webkitClipPath = "";
     navbar.style.pointerEvents = "";
     
-    // Force display block first, then add active class
-    navbar.style.display = "block";
-    
-    // Use setTimeout to ensure display is applied before transform
-    setTimeout(() => {
+    // Use single requestAnimationFrame for better performance
+    requestAnimationFrame(() => {
       navbar.classList.add("active");
       overlay.classList.add("active");
       document.body.classList.add("nav-active");
-    }, 10);
+    });
   }
 };
 
@@ -179,9 +176,11 @@ const hideHeader = function () {
   lastScrollPos = window.scrollY;
 };
 
-window.addEventListener("scroll", function () {
+// Throttle scroll handler for better performance
+let scrollTimeout;
+const handleScroll = function () {
   // Don't hide header if navbar is open
-  if (navbar.classList.contains("active")) {
+  if (navbar && navbar.classList.contains("active")) {
     return;
   }
   
@@ -210,7 +209,18 @@ window.addEventListener("scroll", function () {
   } else {
     header.classList.remove("active");
   }
-});
+};
+
+// Use passive listener and throttle for better performance
+window.addEventListener("scroll", function () {
+  if (!scrollTimeout) {
+    requestAnimationFrame(() => {
+      handleScroll();
+      scrollTimeout = null;
+    });
+    scrollTimeout = true;
+  }
+}, { passive: true });
 
 
 /**
@@ -260,26 +270,47 @@ heroSliderPrevBtn.addEventListener("click", slidePrev);
  */
 
 let autoSlideInterval;
+let isPaused = false;
 
 const autoSlide = function () {
+  if (isPaused) return;
   autoSlideInterval = setInterval(function () {
-    slideNext();
+    if (!isPaused) {
+      slideNext();
+    }
   }, 7000);
+};
+
+const pauseAutoSlide = function () {
+  isPaused = true;
+  clearInterval(autoSlideInterval);
+};
+
+const resumeAutoSlide = function () {
+  isPaused = false;
+  autoSlide();
 };
 
 addEventOnElements(
   [heroSliderNextBtn, heroSliderPrevBtn],
   "mouseover",
-  function () {
-    clearInterval(autoSlideInterval);
-  }
+  pauseAutoSlide
 );
 
 addEventOnElements(
   [heroSliderNextBtn, heroSliderPrevBtn],
   "mouseout",
-  autoSlide
+  resumeAutoSlide
 );
+
+// Pause on mobile touch for better performance
+if ('ontouchstart' in window) {
+  addEventOnElements(
+    [heroSliderNextBtn, heroSliderPrevBtn],
+    "touchstart",
+    pauseAutoSlide
+  );
+}
 
 window.addEventListener("load", autoSlide);
 
