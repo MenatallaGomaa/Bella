@@ -817,10 +817,11 @@ body.nav-active {
   padding: 0;
   overflow-y: auto;
   overflow-x: hidden;
+  display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   z-index: 1000;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.4s, opacity 0.3s ease 0.1s, clip-path 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0.4s, opacity 0.3s ease 0.1s, clip-path 0.4s ease, display 0s 0.4s;
   box-sizing: border-box;
   will-change: transform;
   box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6), 
@@ -833,8 +834,9 @@ body.nav-active {
   /* Prevent any scrolling from affecting navbar position */
   transform: translateX(-100%) !important;
   /* Use clip-path as additional safety to ensure navbar is completely hidden */
-  clip-path: inset(0 0 0 100%);
-  -webkit-clip-path: inset(0 0 0 100%);
+  clip-path: inset(0 0 0 100%) !important;
+  -webkit-clip-path: inset(0 0 0 100%) !important;
+  pointer-events: none !important;
 }
 
 .navbar.active {
@@ -845,13 +847,15 @@ body.nav-active {
   right: auto !important;
   bottom: 0 !important;
   margin: 0 !important;
+  display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
   transform: translateX(100%) !important;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0s, opacity 0.3s ease 0.1s, clip-path 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s 0s, opacity 0.3s ease 0.1s, clip-path 0.4s ease, display 0s 0s;
   /* Remove clip-path when active */
-  clip-path: none;
-  -webkit-clip-path: none;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  pointer-events: all !important;
 }
 
 .navbar .close-btn {
@@ -2331,6 +2335,7 @@ textarea.input-field {
     min-width: 350px;
     left: -100%;
     overflow-x: hidden;
+    display: none !important;
     transform: translateX(-100%) !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -2340,6 +2345,7 @@ textarea.input-field {
   }
 
   .navbar.active {
+    display: block !important;
     transform: translateX(100%) !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -2897,6 +2903,7 @@ textarea.input-field {
   
   /* Ensure navbar is completely hidden on very small screens */
   .navbar {
+    display: none !important;
     transform: translateX(-100%) !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -2906,6 +2913,7 @@ textarea.input-field {
   }
   
   .navbar.active {
+    display: block !important;
     transform: translateX(100%) !important;
     visibility: visible !important;
     opacity: 1 !important;

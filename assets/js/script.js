@@ -14,11 +14,13 @@ window.addEventListener("load", function () {
   
   // Ensure navbar is hidden after page load
   if (navbar && !navbar.classList.contains("active")) {
+    navbar.style.display = "none";
     navbar.style.transform = "translateX(-100%)";
     navbar.style.visibility = "hidden";
     navbar.style.opacity = "0";
     navbar.style.clipPath = "inset(0 0 0 100%)";
     navbar.style.webkitClipPath = "inset(0 0 0 100%)";
+    navbar.style.pointerEvents = "none";
   }
   if (overlay && !overlay.classList.contains("active")) {
     overlay.style.opacity = "0";
@@ -48,11 +50,13 @@ const overlay = document.querySelector("[data-overlay]");
 if (navbar) {
   navbar.classList.remove("active");
   // Set inline styles immediately to prevent flash of visible sidebar
+  navbar.style.display = "none";
   navbar.style.transform = "translateX(-100%)";
   navbar.style.visibility = "hidden";
   navbar.style.opacity = "0";
   navbar.style.clipPath = "inset(0 0 0 100%)";
   navbar.style.webkitClipPath = "inset(0 0 0 100%)";
+  navbar.style.pointerEvents = "none";
 }
 
 if (overlay) {
@@ -64,32 +68,38 @@ if (overlay) {
 const toggleNavbar = function () {
   const isActive = navbar.classList.contains("active");
   
-  // Remove inline styles immediately so CSS can handle transitions
-  navbar.style.transform = "";
-  navbar.style.visibility = "";
-  navbar.style.opacity = "";
-  navbar.style.clipPath = "";
-  navbar.style.webkitClipPath = "";
-  overlay.style.opacity = "";
-  overlay.style.visibility = "";
-  
   if (isActive) {
     // Closing navbar
     navbar.classList.remove("active");
     overlay.classList.remove("active");
     document.body.classList.remove("nav-active");
-    // Restore clip-path after transition
+    // Hide completely after transition
     setTimeout(() => {
       if (!navbar.classList.contains("active")) {
+        navbar.style.display = "none";
+        navbar.style.transform = "translateX(-100%)";
+        navbar.style.visibility = "hidden";
+        navbar.style.opacity = "0";
         navbar.style.clipPath = "inset(0 0 0 100%)";
         navbar.style.webkitClipPath = "inset(0 0 0 100%)";
+        navbar.style.pointerEvents = "none";
       }
     }, 400);
   } else {
-    // Opening navbar
-    navbar.classList.add("active");
-    overlay.classList.add("active");
-    document.body.classList.add("nav-active");
+    // Opening navbar - remove inline display first
+    navbar.style.display = "";
+    navbar.style.transform = "";
+    navbar.style.visibility = "";
+    navbar.style.opacity = "";
+    navbar.style.clipPath = "";
+    navbar.style.webkitClipPath = "";
+    navbar.style.pointerEvents = "";
+    // Small delay to ensure display is set before adding active class
+    requestAnimationFrame(() => {
+      navbar.classList.add("active");
+      overlay.classList.add("active");
+      document.body.classList.add("nav-active");
+    });
   }
 };
 
