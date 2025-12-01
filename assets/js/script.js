@@ -39,14 +39,64 @@ const toggleNavbar = function () {
 
 addEventOnElements(navTogglers, "click", toggleNavbar);
 
+// Prevent navbar from closing when clicking inside it
+navbar.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+
+// Close navbar when clicking on overlay
+overlay.addEventListener("click", function () {
+  if (navbar.classList.contains("active")) {
+    toggleNavbar();
+  }
+});
+
+// Close navbar when clicking on a link
+const navbarLinks = document.querySelectorAll(".navbar-link");
+navbarLinks.forEach(link => {
+  link.addEventListener("click", function () {
+    // Small delay to allow navigation
+    setTimeout(() => {
+      if (navbar.classList.contains("active")) {
+        toggleNavbar();
+      }
+    }, 300);
+  });
+});
+
 /**
  * HEADER & BACK TOP BTN
  */
 
 const header = document.querySelector("[data-header]");
-const backTopBtn = document.querySelector("[data-back-top-btn]");
+let backTopBtn = document.querySelector("[data-back-top-btn]");
+const serviceSection = document.querySelector("#service-section");
 
 let lastScrollPos = 0;
+
+// Ensure back to top button is hidden on page load
+if (backTopBtn) {
+  backTopBtn.classList.remove("active");
+}
+
+// Back to top button click handler - use event delegation for reliability
+document.addEventListener("click", function(e) {
+  if (e.target.closest("[data-back-top-btn]")) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Scroll to top smoothly
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
+    
+    // Also try scrolling the document elements directly as fallback
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
+});
 
 const hideHeader = function () {
   const isScrollBottom = lastScrollPos < window.scrollY;
@@ -60,15 +110,38 @@ const hideHeader = function () {
 };
 
 window.addEventListener("scroll", function () {
+  // Don't hide header if navbar is open
+  if (navbar.classList.contains("active")) {
+    return;
+  }
+  
+  // Get back to top button if not already set
+  if (!backTopBtn) {
+    backTopBtn = document.querySelector("[data-back-top-btn]");
+  }
+  
+  // Show back to top button only after scrolling down significantly (middle of page)
+  if (backTopBtn) {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    // Show button after scrolling down at least 1.5 viewport heights (middle of page)
+    const showThreshold = windowHeight * 1.5;
+    
+    if (scrollPosition >= showThreshold) {
+      backTopBtn.classList.add("active");
+    } else {
+      backTopBtn.classList.remove("active");
+    }
+  }
+  
   if (window.scrollY >= 50) {
     header.classList.add("active");
-    backTopBtn.classList.add("active");
     hideHeader();
   } else {
     header.classList.remove("active");
-    backTopBtn.classList.remove("active");
   }
 });
+
 
 /**
  * HERO SLIDER
@@ -174,11 +247,11 @@ emailButton.addEventListener("click", function () {
   const phone = document.getElementById("phone").value;
   const person = document.getElementById("person").value;
   const startDate = document.getElementById("startDate").value;
-  const endDate = document.getElementById("endDate").value;
   const reservationTime = document.getElementById("reservationTime").value;
+  const address = document.getElementById("address").value;
   const message = document.getElementById("message").value;
 
-  if (!name || !phone || !startDate || !endDate || !reservationTime) {
+  if (!name || !phone || !startDate || !reservationTime || !address) {
     alert("Bitte füllen Sie alle Pflichtfelder aus.");
     return;
   }
@@ -190,10 +263,10 @@ emailButton.addEventListener("click", function () {
 
   const email = "bellabiladipizza@gmail.com";
   const subject = "Booking Request";
-  const body = `Name: ${name}%0D%0APhone: ${phone}%0D%0APersons: ${person}%0D%0AStart Date: ${startDate}%0D%0AEnd Date: ${endDate}%0D%0ATime: ${reservationTime}%0D%0AMessage: ${message}`;
+  const body = `Name: ${name}%0D%0APhone: ${phone}%0D%0APersons: ${person}%0D%0ADate: ${startDate}%0D%0ATime: ${reservationTime}%0D%0AAddress: ${address}%0D%0AMessage: ${message}`;
 
   const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
 
-  // Open default email client with pre-filled dataa
+  // Open default email client with pre-filled data
   window.location.href = mailtoLink;
 });
