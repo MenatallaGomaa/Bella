@@ -2479,6 +2479,16 @@ textarea.input-field {
     gap: 30px;
   }
 
+  .menu .container {
+    text-align: center;
+  }
+
+  .menu .btn {
+    display: flex;
+    margin-inline: auto;
+    width: fit-content;
+  }
+
   /**
    * SPECIAL DISH - Mobile
    */
