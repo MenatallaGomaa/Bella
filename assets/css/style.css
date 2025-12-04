@@ -1456,6 +1456,11 @@ body.loaded {
 
 .service-card .card-banner {
   transition: var(--transition-2);
+  background-color: transparent;
+}
+
+.service-card .card-banner.img-holder {
+  background-color: transparent;
 }
 
 .service-card:is(:hover, :focus-within) .card-banner {
@@ -3056,12 +3061,97 @@ textarea.input-field {
   }
 
   .topbar .container {
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* Navbar list styles for larger screens */
+  .topbar .navbar-list {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  .topbar .navbar-item {
+    margin: 0;
+  }
+
+  .topbar .navbar-link {
+    color: var(--white);
+    font-size: var(--fontSize-label-2);
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: var(--transition-1);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 30px;
+    white-space: nowrap;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .topbar .navbar-link .span {
+    color: var(--white);
+    transition: var(--transition-1);
+  }
+
+  .topbar .navbar-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--gold-crayola);
+    transform: scaleX(0);
+    transition: transform var(--transition-2);
+    border-radius: 0 0 6px 6px;
+  }
+
+  .topbar .navbar-link:is(:hover, :focus-visible) {
+    background-color: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold-crayola);
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+  }
+
+  .topbar .navbar-link:is(:hover, :focus-visible) .span {
+    color: var(--gold-crayola);
+  }
+
+  .topbar .navbar-link:is(:hover, :focus-visible)::after {
+    transform: scaleX(1);
+  }
+
+  /* Phone and email section - group them horizontally */
+  .topbar .topbar-item.link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  /* Group contact info together */
+  .topbar .topbar-item.link + .separator + .topbar-item.link {
+    display: flex;
   }
 
   .topbar-item {
     gap: 6px;
+  }
+
+  /* Ensure contact items stay on one line */
+  .topbar .topbar-item.link .span {
+    white-space: nowrap;
   }
 
   .topbar-item ion-icon {
@@ -3078,6 +3168,17 @@ textarea.input-field {
 
   .topbar .link:is(:hover, :focus-visible) {
     color: var(--gold-crayola);
+  }
+
+  /* Separator between navbar and contact info - small square diamond */
+  .topbar .separator {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--gold-crayola);
+    transform: rotate(45deg);
+    background-color: transparent;
+    margin: 0 15px;
   }
 
   /**
@@ -3394,6 +3495,37 @@ textarea.input-field {
     margin-inline-end: auto;
   }
 
+  /* Enhanced navbar styles for larger screens */
+  .topbar .container {
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 40px;
+  }
+
+  .topbar .navbar-list {
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .topbar .navbar-link {
+    font-size: var(--fontSize-label-1);
+    padding: 10px 20px;
+  }
+
+  .topbar .separator {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--gold-crayola);
+    transform: rotate(45deg);
+    background-color: transparent;
+    margin: 0 15px;
+  }
+
   /**
    * SERVICE
    */
@@ -3544,11 +3676,27 @@ textarea.input-field {
    */
 
   .topbar .container {
-    max-width: unset;
+    max-width: 1200px;
+    padding-inline: 60px;
   }
 
   .topbar .separator {
     display: block;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--gold-crayola);
+    transform: rotate(45deg);
+    background-color: transparent;
+    margin: 0 15px;
+  }
+
+  .topbar .navbar-list {
+    gap: 25px;
+  }
+
+  .topbar .navbar-link {
+    padding: 12px 24px;
+    font-size: var(--fontSize-label-1);
   }
 
   /**
