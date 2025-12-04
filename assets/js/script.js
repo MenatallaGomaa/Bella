@@ -261,6 +261,14 @@ emailButton.addEventListener("click", function () {
 
   const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
 
+  // Show confirmation message
+  alert("Vielen Dank! Ihr Anfrageformular wurde vorbereitet. Ihr E-Mail-Programm wird sich jetzt öffnen, damit Sie die Anfrage senden können.");
+  
   // Open default email client with pre-filled data
   window.location.href = mailtoLink;
+  
+  // Reset form after a short delay
+  setTimeout(function() {
+    document.getElementById("reservationForm").reset();
+  }, 1000);
 });
