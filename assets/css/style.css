@@ -1431,6 +1431,12 @@ body.loaded {
   padding-block: 30px;
   margin-block-end: 26px;
   z-index: 1;
+  width: 100%;
+}
+
+.service-card .has-before figure {
+  width: 100%;
+  max-width: 100%;
 }
 
 .service-card .has-before::before {
@@ -1461,6 +1467,14 @@ body.loaded {
 
 .service-card .card-banner.img-holder {
   background-color: transparent;
+  width: 100%;
+}
+
+.service-card .card-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .service-card:is(:hover, :focus-within) .card-banner {
