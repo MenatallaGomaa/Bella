@@ -53,7 +53,7 @@ const menuItems = [
     imageUrl: "/funghi.jpeg",
   },
   {
-    name: "Pizza Coppola",
+    name: "Pizza Cippola",
     description: "Tomatensauce, Käse und Zwiebeln.",
     priceCents: 700,
     category: "Pizza",
@@ -71,7 +71,7 @@ const menuItems = [
     description: "Mit frischen Oliven.",
     priceCents: 700,
     category: "Pizza",
-    imageUrl: "/veganita.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Pizza Artischocke",
@@ -106,7 +106,7 @@ const menuItems = [
     description: "Frische Tomaten, Spinat und Oliven.",
     priceCents: 900,
     category: "Pizza",
-    imageUrl: "/veganita.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Pizza Melanzane",
@@ -120,7 +120,7 @@ const menuItems = [
     description: "Frische Tomaten, Brokkoli, Champignons und Auberginen.",
     priceCents: 900,
     category: "Pizza",
-    imageUrl: "/deluxe.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Pizza Veggie Lovers",
@@ -155,7 +155,7 @@ const menuItems = [
     description: "Champignons, Gorgonzola und Artischocken als Calzone.",
     priceCents: 1200,
     category: "Pizza",
-    imageUrl: "/gorgon.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Pizza Salami",
@@ -197,7 +197,7 @@ const menuItems = [
     description: "Ananas und Puten-Schinken.",
     priceCents: 900,
     category: "Pizza",
-    imageUrl: "/hawaii.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Pizza Salami e Funghi",
@@ -239,7 +239,7 @@ const menuItems = [
     description: "Rinderhack, Paprika und Artischocken.",
     priceCents: 1000,
     category: "Pizza",
-    imageUrl: "/le-gamila.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Pizza Capricciosa",
@@ -260,14 +260,14 @@ const menuItems = [
     description: "Extra Käse und doppelte Rindersalami.",
     priceCents: 1100,
     category: "Pizza",
-    imageUrl: "/supreme.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Pizza BBQ",
     description: "BBQ-Sauce, Rindersalami, Sucuk und Aubergine.",
     priceCents: 1100,
     category: "Pizza",
-    imageUrl: "/bbq.jpeg",
+    imageUrl: "/main.jpeg",
   },
   {
     name: "Calzone Klassisch",
@@ -408,14 +408,14 @@ const menuItems = [
   },
   {
     name: "Spaghetti Aglio e Olio",
-    description: "Knoblauch, Chili, Olivenöl und Petersilie (vegan).",
+    description: "Knoblauch, Chili, Olivenöl, Petersilie und Cherrytomaten (vegan).",
     priceCents: 800,
     category: "Spaghetti",
     imageUrl: "/Spaghetti Aglio e Olio.jpeg",
   },
   {
     name: "Spaghetti Bolognese",
-    description: "Rinderhack, Zwiebeln, Tomatensauce und Knoblauch.",
+    description: "Rinderhack, Zwiebeln, Tomatensauce, Knoblauch und Parmesan.",
     priceCents: 950,
     category: "Spaghetti",
     imageUrl: "/Spaghetti Bolognese.jpeg",
@@ -459,21 +459,21 @@ const menuItems = [
   // ---------- BURGER ----------
   {
     name: "Cheeseburger",
-    description: "Saftiger Rindfleischburger mit Käse.",
+    description: "Saftiger Rindfleischburger mit Käse. Kommt mit kleiner Portion Pommes.",
     priceCents: 990,
     category: "Burger",
     imageUrl: "/burger.jpeg",
   },
   {
     name: "Chickenburger",
-    description: "Knuspriges Hähnchenfilet im Burger.",
+    description: "Knuspriges Hähnchenfilet im Burger. Kommt mit kleiner Portion Pommes.",
     priceCents: 990,
     category: "Burger",
     imageUrl: "/burger.jpeg",
   },
   {
     name: "Vegan Burger",
-    description: "Pflanzlicher Patty mit frischem Gemüse.",
+    description: "Pflanzlicher Patty mit frischem Gemüse. Kommt mit kleiner Portion Pommes.",
     priceCents: 990,
     category: "Burger",
     imageUrl: "/burger.jpeg",
